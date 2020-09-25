@@ -69,7 +69,7 @@ $(document).ready(function(){
 		console.log(class_value)
 		console.log(value_value)
 		console.log(option_value)
-		//console.log($(radioo_select).length);
+		console.log(radioo_select.length);
 
 		//console.log(b)  value="'+key+'">'+ head +'</option>
 		//$("main h1:nth-child(" +head_select+ ") h2:nth-child(" +subhead_select+ ")").append('hello');
@@ -90,12 +90,16 @@ $(document).ready(function(){
 		else if (itype_select == "select"){
 			//for(i = 0; i < $("radioo_select").length; i++){
 				//$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" >(<option value="'+i+'">'+radioo_select[i]+'</option></itype_select></p>');
-				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'"></p>');
-				console.log($("radioo_select"), 'pppppppppppp')
-				for(i = 0; i < $("radioo_select").length; i++){
-					//$("radioo_select[i]").appendto("select option");
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><select class="'+class_value+'"></select></p>');
+				var op_select_len =radioo_select.length;
+				//var n=1;
+				for(i = 0; i < op_select_len; i++){
+					
+					console.log('<option value="'+i+'">'+radioo_select[i]+'</option>')
+					$('<option value="'+i+'">'+radioo_select[i]+'</option>').appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p select ');
 					//$("#inputid_value").append('<option>'+radioo_select+'</option>')
-					$('#inputid_value').append('<option value="'+radioo_select[i]+'">'+radioo_select[i]+'</option>'); 
+					//$('.class_value').append('<option value="'+i+'">'+radioo_select[i]+'</option>'); 
+					//console.log(i)	
 				}
 			}
 		else if (itype_select == "textarea"){
