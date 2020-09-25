@@ -72,7 +72,7 @@ $(document).ready(function(){
 		//console.log(class_value)
 		//console.log(value_value)
 		//console.log(option_value)
-		//console.log(radioo_select.length);
+		console.log(radioo_select.length);
 		console.log(read_only);
 
 		//console.log(b)  value="'+key+'">'+ head +'</option>
