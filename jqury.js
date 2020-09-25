@@ -54,59 +54,75 @@ $(document).ready(function(){
 		var option_value=  $("#op").val();
 		var cc = parseInt(subhead_select)+1;
 		var radioo_select=option_value.split(",");
+		var disable_check=$(".check_class").val();
+		var read_only=$(".r_o").val();
+
 		//console.log(cc)
 		//var o=  $("dis").val()
 		//var p=  $("").text()
 		//var q=  $("").text()
 		//var r=  $('#itt option:selected').text()
-		console.log(head_select)
-		console.log(subhead_select)
-		console.log(itype_select)
-		console.log(inputid_value)
-		console.log(label_value)
-		console.log(name_value)
-		console.log(pholder_value)
-		console.log(class_value)
-		console.log(value_value)
-		console.log(option_value)
-		console.log(radioo_select.length);
+		//console.log(head_select)
+		//console.log(subhead_select)
+		//console.log(itype_select)
+		//console.log(inputid_value)
+		//console.log(label_value)
+		//console.log(name_value)
+		//console.log(pholder_value)
+		//console.log(class_value)
+		//console.log(value_value)
+		//console.log(option_value)
+		//console.log(radioo_select.length);
+		console.log(read_only);
 
 		//console.log(b)  value="'+key+'">'+ head +'</option>
 		//$("main h1:nth-child(" +head_select+ ") h2:nth-child(" +subhead_select+ ")").append('hello');
 		if (itype_select == "radio"){
-			$( radioo_select ).each(function(i) {
-
-	  			$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" ></p>');
-				i=i+1
-			});
-		}
+			if ($('.check_class').is(":checked")){					
+				$( radioo_select ).each(function(i) {
+  					$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" disabled ></p>');
+						i=i+1
+				});	
+			}
+			else{
+				$( radioo_select ).each(function(i){
+	  				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" ></p>');
+					i=i+1
+				});
+			}
+		}	
 		else if (itype_select == "checkbox"){
-			$( radioo_select ).each(function(i) {
-
-	  			$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" ></p>');
+			if ($('.check_class').is(":checked")){
+				$( radioo_select ).each(function(i) {
+	  			$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" disabled></p>');				i=i+1
+				});
+			}
+			else{
+				$( radioo_select ).each(function(i) {
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" ></p>');
 				i=i+1
 				});
+			}
 		}
 		else if (itype_select == "select"){
-			//for(i = 0; i < $("radioo_select").length; i++){
-				//$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" >(<option value="'+i+'">'+radioo_select[i]+'</option></itype_select></p>');
-				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><select class="'+class_value+'"></select></p>');
-				var op_select_len =radioo_select.length;
-				//var n=1;
-				for(i = 0; i < op_select_len; i++){
-					
-					console.log('<option value="'+i+'">'+radioo_select[i]+'</option>')
-					$('<option value="'+i+'">'+radioo_select[i]+'</option>').appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p select ');
-					//$("#inputid_value").append('<option>'+radioo_select+'</option>')
-					//$('.class_value').append('<option value="'+i+'">'+radioo_select[i]+'</option>'); 
-					//console.log(i)	
+			$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label for="select">'+label_value+'</label><select class="'+class_value+'"></select></p>');
+			var op_select_len =radioo_select.length;
+			for(i = 0; i < op_select_len; i++){					
+				console.log('<option value="'+i+'">'+radioo_select[i]+'</option>')
+				$('<option value="'+i+'">'+radioo_select[i]+'</option>').appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p select ');	
 				}
 			}
 		else if (itype_select == "textarea"){
 			$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" ></p>');
 		}
 		else {
-			$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" ></p>');
+			if ($('.check_class').is(":checked")){
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" disabled></p>');
+			}
+			else{
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" ></p>');
+			}
+
 		}
 	});     
 });
