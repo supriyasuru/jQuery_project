@@ -14,7 +14,7 @@ $(document).ready(function(){
 	  $(".form-group select").append('<option value="'+key+'">'+ head +'</option>');
 	  $(".form-group1 select").append('<option value="'+key+'">'+ head +'</option>');
 
-	//$(".form_head").trigger('reset');	
+	$(".form_head").trigger('reset');	
 	});
   });
 
@@ -24,7 +24,7 @@ $(document).ready(function(){
 	var invl=$('.inputsubhead_class').val();
 	$( "main section:nth-child(" +sel+ ")" ).append( '<div><h2> '+invl+'<button onclick=myFunctionn(this)>X</button></h2></div>' );
 	$(".formsubhead_list option").remove();
-	//$(".form_head").trigger('reset');
+	$(".formsub_head").trigger('reset');
   });
 
   
@@ -43,7 +43,7 @@ $(document).ready(function(){
 	});  
   }); 
 
-  $("#btn3").click(function(){ 
+	$("#btn3").click(function(){ 
 		var head_select=  $('.formhead_list option:selected').val();
 		var subhead_select=  $('.formsubhead_list option:selected').val();
 		var itype_select=  $('.inputtype_list option:selected').val();
@@ -143,19 +143,20 @@ $(document).ready(function(){
 		}
 		else {
 			if ($('.check_class').is(":checked")){
-				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" disabled></p>');
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'"  placeholder="'+pholder_value+'" disabled></p>');
 			}
 			else if($('.r_o').is(":checked")){
-				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" readonly></p>');
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'"  placeholder="'+pholder_value+'" readonly></p>');
 			}
 			else if($('.req').is(":checked")){
-				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" required></p>');
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'"  placeholder="'+pholder_value+'" required></p>');
 			}
 			else{
-				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" ></p>');
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'"  placeholder="'+pholder_value+'"></p>');
 			}
 
 		}
+	$(".formhead_subhead").trigger('reset');
 	});     
 });
 
