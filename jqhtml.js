@@ -1,26 +1,30 @@
 $(document).ready(function(){
   
-  $("#btn1").click(function(){
-	var valu=$('#idd').val();
+  $(".form_head").submit(function(event){
+  	event.preventDefault()
+	var valu=$('.inputhead_class').val();
 	$("main").append('<section><h1>'+valu+'<button onclick=myFunction(this)>X</button></h1></section>');
-	$("#cars option").remove();
+	$(".head_dropdown1 option").remove();
 	$(".formhead_list option").remove();      
-	$("#cars").append('<option value="select">select</option>');
+	$(".head_dropdown1").append('<option value="select">select</option>');
 	$(".formhead_list").append('<option value="select">select</option>');
 	$( "main section h1" ).each(function(key) {
 	  key=key+1
 	  var head = $(this).text().replace("X","");      
 	  $(".form-group select").append('<option value="'+key+'">'+ head +'</option>');
 	  $(".form-group1 select").append('<option value="'+key+'">'+ head +'</option>');
-	
+
+	//$(".form_head").trigger('reset');	
 	});
   });
-  $("#btn2").click(function(){
-	var sel=$('#cars').val();
-	var invl=$('#iddd').val();
+
+  $(".formsub_head").submit(function(event){
+  	event.preventDefault()
+	var sel=$('.head_dropdown1').val();
+	var invl=$('.inputsubhead_class').val();
 	$( "main section:nth-child(" +sel+ ")" ).append( '<div><h2> '+invl+'<button onclick=myFunctionn(this)>X</button></h2></div>' );
 	$(".formsubhead_list option").remove();
-	//$(".itt").append('<option value="select">select</option>');
+	//$(".form_head").trigger('reset');
   });
 
   
@@ -40,18 +44,16 @@ $(document).ready(function(){
   }); 
 
   $("#btn3").click(function(){ 
-		//var x=$("#it").val();
-	   // var y=$("#itt").val();
-		var head_select=  $('#formhead_list option:selected').val();
-		var subhead_select=  $('#formsubhead_list option:selected').val();
-		var itype_select=  $('#inputtype_list option:selected').val();
-		var inputid_value=$("#inputid_id").val();
-		var label_value=  $("#lab").val();
-		var name_value=  $("#namec").val();
-		var pholder_value=  $("#ph").val();
-		var class_value=  $("#cll").val();
-		var value_value=  $("#vall").val();
-		var option_value=  $("#op").val();
+		var head_select=  $('.formhead_list option:selected').val();
+		var subhead_select=  $('.formsubhead_list option:selected').val();
+		var itype_select=  $('.inputtype_list option:selected').val();
+		var inputid_value=$(".inputid_id").val();
+		var label_value=  $(".lab").val();
+		var name_value=  $(".namec").val();
+		var pholder_value=  $(".ph").val();
+		var class_value=  $(".cll").val();
+		var value_value=  $(".vall").val();
+		var option_value=  $(".op").val();
 		var cc = parseInt(subhead_select)+1;
 		var radioo_select=option_value.split(",");
 		var disable_check=$(".check_class").val();
@@ -130,13 +132,13 @@ $(document).ready(function(){
 		}
 		else if (itype_select == "textarea"){
 			if ($('.check_class').is(":checked")){
-				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" disabled></p>');
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><textarea id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" disabled></textarea></p>');
 			}
 			else if($('.r_o').is(":checked")){
-				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" readonly></p>');
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><textarea id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" readonly></textarea></p>');
 			}
 			else{
-				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" ></p>');
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><textarea id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" ></textarea></p>');
 			}
 		}
 		else {
@@ -160,7 +162,7 @@ $(document).ready(function(){
 
 function myFunction(t) {
   $(t).parent().remove();
-  $("#cars option").remove();
+  $(".head_dropdown1 option").remove();
   $(".formhead_list option").remove(); 
   $( "main h1" ).each(function(key) {
 	key=key+1
