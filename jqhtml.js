@@ -15,24 +15,28 @@ $(document).ready(function(){
 	  		$(".form-group select").append('<option value="'+key+'">'+ head +'</option>');
 	  		$(".form-group1 select").append('<option value="'+key+'">'+ head +'</option>');	
 		});
-		//stor.push({'title':valu,'sub':sub});
+		
 		stor.push({'title':valu,'sub':[]});
 		localStorage.setItem('stor',JSON.stringify(stor));
+
 		$(".form_head").trigger('reset');	
   	});
 	
 
-  $(".formsub_head").submit(function(event){
-	event.preventDefault()
-	var sel=$('.head_dropdown1').val();
-	var invl=$('.inputsubhead_class').val();
-	$( "main section:nth-child(" +sel+ ")" ).append( '<div><h2> '+invl+'<button onclick=myFunctionn(this)>X</button></h2></div>' );
-	$(".formsubhead_list option").remove();
-	$(".formsub_head").trigger('reset');
+  	$(".formsub_head").submit(function(event){
+		event.preventDefault()
+		var sel=$('.head_dropdown1').val();
+		console.log(sel)
+		var invl=$('.inputsubhead_class').val();
+		$( "main section:nth-child(" +sel+ ")" ).append( '<div><h2> '+invl+'<button onclick=myFunctionn(this)>X</button></h2></div>' );
+		$(".formsubhead_list option").remove();
 
-	//stor[sel].sub.push({'subheading':invl});
-	//localStorage.setItem('stor',JSON.stringify(stor));
-  });
+		stor[sel-1].sub.push({'subheading':invl,'thrd_array':[]});
+		localStorage.setItem('stor',JSON.stringify(stor));
+		
+		$(".formsub_head").trigger('reset');
+
+  	});
 
   
   $( ".formhead_list" ).change(function () {
@@ -70,22 +74,10 @@ $(document).ready(function(){
 		//var o=  $("dis").val()
 		//var p=  $("").text()
 		//var q=  $("").text()
-		//var r=  $('#itt option:selected').text()
-		//console.log(head_select)
-		//console.log(subhead_select)
-		//console.log(itype_select)
-		//console.log(inputid_value)
-		//console.log(label_value)
-		//console.log(name_value)
-		//console.log(pholder_value)
-		//console.log(class_value)
-		//console.log(value_value)
-		//console.log(option_value)
+		
 		console.log(radioo_select.length);
-		console.log(read_only);
+		
 
-		//console.log(b)  value="'+key+'">'+ head +'</option>
-		//$("main h1:nth-child(" +head_select+ ") h2:nth-child(" +subhead_select+ ")").append('hello');
 		if (itype_select == "radio"){
 			if ($('.check_class').is(":checked")){					
 				$( radioo_select ).each(function(i) {
@@ -163,7 +155,11 @@ $(document).ready(function(){
 			}
 
 		}
-	$(".formhead_subhead").trigger('reset');
+
+	// stor[sel-1].sub.push({'subheading':invl,'thrd_array':[]});
+	// localStorage.setItem('stor',JSON.stringify(stor));
+	
+	 $(".formhead_subhead").trigger('reset');
 	});     
 });
 
