@@ -1,30 +1,37 @@
 $(document).ready(function(){
-  
-  $(".form_head").submit(function(event){
-  	event.preventDefault()
-	var valu=$('.inputhead_class').val();
-	$("main").append('<section><h1>'+valu+'<button onclick=myFunction(this)>X</button></h1></section>');
-	$(".head_dropdown1 option").remove();
-	$(".formhead_list option").remove();      
-	$(".head_dropdown1").append('<option value="select">select</option>');
-	$(".formhead_list").append('<option value="select">select</option>');
-	$( "main section h1" ).each(function(key) {
-	  key=key+1
-	  var head = $(this).text().replace("X","");      
-	  $(".form-group select").append('<option value="'+key+'">'+ head +'</option>');
-	  $(".form-group1 select").append('<option value="'+key+'">'+ head +'</option>');
-
-	$(".form_head").trigger('reset');	
-	});
-  });
+  	var stor = []
+  	//var sub = []
+  	$(".form_head").submit(function(event){
+		event.preventDefault()
+		var valu=$('.inputhead_class').val();
+		$("main").append('<section><h1>'+valu+'<button onclick=myFunction(this)>X</button></h1></section>');
+		$(".head_dropdown1 option").remove();
+		$(".formhead_list option").remove();      
+		$(".head_dropdown1").append('<option value="select">select</option>');
+		$(".formhead_list").append('<option value="select">select</option>');
+		$( "main section h1" ).each(function(key) {
+	  		key=key+1
+	  		var head = $(this).text().replace("X","");      
+	  		$(".form-group select").append('<option value="'+key+'">'+ head +'</option>');
+	  		$(".form-group1 select").append('<option value="'+key+'">'+ head +'</option>');	
+		});
+		//stor.push({'title':valu,'sub':sub});
+		stor.push({'title':valu,'sub':[]});
+		localStorage.setItem('stor',JSON.stringify(stor));
+		$(".form_head").trigger('reset');	
+  	});
+	
 
   $(".formsub_head").submit(function(event){
-  	event.preventDefault()
+	event.preventDefault()
 	var sel=$('.head_dropdown1').val();
 	var invl=$('.inputsubhead_class').val();
 	$( "main section:nth-child(" +sel+ ")" ).append( '<div><h2> '+invl+'<button onclick=myFunctionn(this)>X</button></h2></div>' );
 	$(".formsubhead_list option").remove();
 	$(".formsub_head").trigger('reset');
+
+	//stor[sel].sub.push({'subheading':invl});
+	//localStorage.setItem('stor',JSON.stringify(stor));
   });
 
   
@@ -36,7 +43,7 @@ $(document).ready(function(){
 	$( "main section:nth-child("+se+") h2" ).each(function(k) {
 	  k=k+1
 	  var subhead = $(this).text().replace("X","");
-	        
+			
 	  $(".form-group2 select").append('<option value="'+k+'">'+ subhead +'</option>');
 
 
@@ -82,19 +89,19 @@ $(document).ready(function(){
 		if (itype_select == "radio"){
 			if ($('.check_class').is(":checked")){					
 				$( radioo_select ).each(function(i) {
-  					$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" disabled ></p>');
+					$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" disabled ></p>');
 						i=i+1
 				});
 			}
 			else if($('.req').is(":checked")){
 				$( radioo_select ).each(function(i) {
-  					$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" required ></p>');
+					$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" required ></p>');
 						i=i+1
 				});
 			}
 			else{
 				$( radioo_select ).each(function(i){
-	  				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" ></p>');
+					$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" ></p>');
 					i=i+1
 				});
 			}
@@ -102,7 +109,7 @@ $(document).ready(function(){
 		else if (itype_select == "checkbox"){
 			if ($('.check_class').is(":checked")){
 				$( radioo_select ).each(function(i) {
-	  			$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" disabled></p>');				i=i+1
+				$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+radioo_select+'" value="'+radioo_select+'" disabled></p>');				i=i+1
 				});
 			}
 			else{
