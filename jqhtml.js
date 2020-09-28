@@ -2,7 +2,12 @@ $(document).ready(function(){
 	var stor = [];
   	var data = JSON.parse(localStorage.getItem('stor'));
   	console.log(data);
+  	$(data).each(function(key,value){
+  		console.log(key,value)
+  		$("main").append('<section><h1>'+value.title+'<button onclick=myFunction(this)>X</button></h1></section>');
 
+
+  	});
 
   	$(".form_head").submit(function(event){
 		event.preventDefault()
@@ -87,11 +92,9 @@ $(document).ready(function(){
 		if (itype_select == "radio"){
 			//if ($('.check_class').is(":checked")){
 			var rad=$('<p>')
-				$( radioo_select ).each(function(i,j) {
-					$('<label>'+j+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'" >').appendTo(rad)
-						//i=i+1
-					//stor[head_select-1].sub[subhead_select-2].form.push({'input':'radio', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
-
+			$( radioo_select ).each(function(i,j) {
+				$('<label>'+j+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'" >').appendTo(rad)
+				stor[head_select-1].sub[subhead_select-1].form.push({'input':'radio', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
 				});
 				rad.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
 			//}
@@ -123,8 +126,9 @@ $(document).ready(function(){
 			$( radioo_select ).each(function(i,j) {
 				//$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" disabled></p>');				i=i+1
 				//stor[head_select-1].sub[subhead_select-2].form.push({'input':'itype_select', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
-			$('<label>'+j+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'"  >').appendTo(check)
-				});
+				$('<label>'+j+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'"  >').appendTo(check)
+				stor[head_select-1].sub[subhead_select-1].form.push({'input':'checkbox', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
+			});
 			check.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
 
 			//}
@@ -144,6 +148,8 @@ $(document).ready(function(){
 			for(i = 0; i < op_select_len; i++){					
 				console.log('<option value="'+i+'">'+radioo_select[i]+'</option>')
 				$('<option value="'+i+'">'+radioo_select[i]+'</option>').appendTo(select_tag);	
+				stor[head_select-1].sub[subhead_select-1].form.push({'input':'select', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
+
 			}
 			selec.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
 
@@ -162,6 +168,7 @@ $(document).ready(function(){
 			var text_area=$('<p>')
 			$('<label>'+label_value+'</label><textarea id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'"></textarea>').appendTo(text_area)
 			text_area.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
+			stor[head_select-1].sub[subhead_select-1].form.push({'input':'textarea', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
 
 
 				//$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><textarea id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" disabled></textarea></p>');
@@ -177,6 +184,7 @@ $(document).ready(function(){
 			var others_it=$('<p>')
 			$('<label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'"></textarea>').appendTo(others_it)
 			others_it.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
+			stor[head_select-1].sub[subhead_select-1].form.push({'input':itype_select, 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
 
 			// if ($('.check_class').is(":checked")){
 			// 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'"  placeholder="'+pholder_value+'" disabled></p>');
