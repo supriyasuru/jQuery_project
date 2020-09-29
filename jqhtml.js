@@ -1,13 +1,54 @@
 $(document).ready(function(){
 	var stor = [];
   	var data = JSON.parse(localStorage.getItem('stor'));
-  	console.log(data);
-  	$(data).each(function(key,value){
-  		console.log(key,value)
-  		$("main").append('<section><h1>'+value.title+'<button onclick=myFunction(this)>X</button></h1></section>');
+  	//console.log(data);
+  	$(data).each(function(hkey,hvalue){
+  		//console.log(hkey,hvalue)
+  		$("main").append('<section><h1>'+hvalue.title+'<button onclick=myFunction(this)>X</button></h1></section>');
+  	
+  		$(hvalue.sub).each(function(skey,svalue){
+  			//console.log(skey,svalue)
+			$( "main section:nth-child(" +(hkey+1)+ ")" ).append( '<div><h2> '+svalue.title+'<button onclick=myFunctionn(this)>X</button></h2></div>' );
+  		
+			$(svalue.form).each(function(fkey,fvalue){
+  			console.log(fkey,fvalue)
+	  			if (fvalue.input == "radio"){
+	  				$(fvalue.option).each(function(rdkey,rdvalue){
+	  					console.log(rdkey,rdvalue)
+						$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+rdvalue+'</label> <input type:'+fvalue.input+', id:'+fvalue.id+', name:'+fvalue.name+', value:'+fvalue.value+', placeholder:'+fvalue.placeholder+', option:'+fvalue.option+'</p>');
+	  				});
+	  			}
+	  			else if (fvalue.input == "checkbox"){
+					$(fvalue.option).each(function(chkkey,chkvalue){
+						$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+chkvalue+'</label> <input type:'+fvalue.input+', id:'+fvalue.id+', name:'+fvalue.name+', value:'+fvalue.value+', placeholder:'+fvalue.placeholder+', option:'+fvalue.option+'</p>');
+	  				});	  			
+				}
+	  			else if (fvalue.input == "textarea"){
+					$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+fvalue.label+'</label> <input type:'+fvalue.input+', id:'+fvalue.id+', name:'+fvalue.name+', value:'+fvalue.value+', placeholder:'+fvalue.placeholder+', option:'+fvalue.option+'</p>');
+	  			}
+	  			else if (fvalue.input == "select"){
+	  				// var option_value=  $(".op").val();
+	  				var radioo_select=$(".op").val().split(",");
+	  				var selec=$('<p>')
+					var select_tag=$('<select>').appendTo(selec)
+					//$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label for="select">'+label_value+'</label><select class="'+class_value+'" disabled></select></p>');
+					var op_select_len =radioo_select.length;
+					for(i = 0; i < op_select_len; i++){					
+						console.log('<option value="'+i+'">'+radioo_select[i]+'</option>')
+						$('<option value="'+i+'">'+radioo_select[i]+'</option>').appendTo(select_tag);	
+					}
+					selec.appendTo('main section:nth-child('+(hkey+1)+' ) div:nth-child(' +(skey+2)+ ') ')
+				}
+	  			else{
+	  				$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+fvalue.label+'</label> <input type:'+fvalue.input+', id:'+fvalue.id+', name:'+fvalue.name+', value:'+fvalue.value+', placeholder:'+fvalue.placeholder+', option:'+fvalue.option+'</p>');
 
-
+	  			}
+  			});
+  		});  		
   	});
+
+
+   	
 
   	$(".form_head").submit(function(event){
 		event.preventDefault()
@@ -186,19 +227,30 @@ $(document).ready(function(){
 			others_it.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
 			stor[head_select-1].sub[subhead_select-1].form.push({'input':itype_select, 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
 
-			// if ($('.check_class').is(":checked")){
-			// 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'"  placeholder="'+pholder_value+'" disabled></p>');
-			// }
-			// else if($('.r_o').is(":checked")){
-			// 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'"  placeholder="'+pholder_value+'" readonly></p>');
-			// }
-			// else if($('.req').is(":checked")){
-			// 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'"  placeholder="'+pholder_value+'" required></p>');
-			// }
-			// else{
-			// 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'"  placeholder="'+pholder_value+'"></p>');
-			// }
-
+			 if ($('.check_class').is(":checked")){
+			 	var che_ck = itype_select
+			 	if(itype_select=='text' || itype_select=='email' || itype_select=='number' || itype_select=='radio' || itype_select=='checkbox' || itype_select=='file' || itype_select=='textarea')
+			 	{
+			 		che_ck=='input';	
+			 	}
+			 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p:last-child '+che_ck).attr('disabled','disabled');
+			 }
+			if ($('.r_o').is(":checked")){
+			 	var forread = itype_select
+			 	if(itype_select=='text' || itype_select=='email' || itype_select=='number' || itype_select=='radio' || itype_select=='checkbox' || itype_select=='file' || itype_select=='textarea')
+			 	{
+			 		forread=='input';	
+			 	}
+			 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p:last-child '+forread).attr('readonly',true);
+			 }
+			if ($('.req').is(":checked")){
+			 	var reqd = itype_select
+			 	if(itype_select=='text' || itype_select=='email' || itype_select=='number' || itype_select=='radio' || itype_select=='checkbox' || itype_select=='file' || itype_select=='textarea')
+			 	{
+			 		reqd=='input';	
+			 	}
+			 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p:last-child '+reqd).attr('required',true);
+			}
 		}
 
 		//if ($('.check_class').is(":checked")){
@@ -209,7 +261,7 @@ $(document).ready(function(){
 	// stor[sel-1].sub.push({'title':invl,'form':[]});
 	localStorage.setItem('stor',JSON.stringify(stor));
 	
-	 $(".formhead_subhead").trigger('reset');
+	 //$(".formhead_subhead").trigger('reset');
 	});     
 });
 
