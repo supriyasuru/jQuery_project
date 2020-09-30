@@ -226,32 +226,32 @@ $(document).ready(function(){
 			$('<label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'"></textarea>').appendTo(others_it)
 			others_it.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
 			stor[head_select-1].sub[subhead_select-1].form.push({'input':itype_select, 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
-
-			 if ($('.check_class').is(":checked")){
-			 	var che_ck = itype_select
-			 	if(itype_select=='text' || itype_select=='email' || itype_select=='number' || itype_select=='radio' || itype_select=='checkbox' || itype_select=='file' || itype_select=='textarea')
-			 	{
-			 		che_ck=='input';	
-			 	}
-			 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p:last-child '+che_ck).attr('disabled','disabled');
-			 }
-			if ($('.r_o').is(":checked")){
-			 	var forread = itype_select
-			 	if(itype_select=='text' || itype_select=='email' || itype_select=='number' || itype_select=='radio' || itype_select=='checkbox' || itype_select=='file' || itype_select=='textarea')
-			 	{
-			 		forread=='input';	
-			 	}
-			 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p:last-child '+forread).attr('readonly',true);
-			 }
-			if ($('.req').is(":checked")){
-			 	var reqd = itype_select
-			 	if(itype_select=='text' || itype_select=='email' || itype_select=='number' || itype_select=='radio' || itype_select=='checkbox' || itype_select=='file' || itype_select=='textarea')
-			 	{
-			 		reqd=='input';	
-			 	}
-			 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p:last-child '+reqd).attr('required',true);
 			}
+		if ($('.check_class').is(":checked")){
+			var che_ck = itype_select
+			if(itype_select=='text' || itype_select=='email' || itype_select=='number' || itype_select=='radio' || itype_select=='checkbox' || itype_select=='file')
+			{
+			 	che_ck='input';	
+			}
+		 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p:last-child '+che_ck).attr('disabled','disabled');
 		}
+		if ($('.r_o').is(":checked")){
+			var forread = itype_select
+			if(itype_select=='text' || itype_select=='email' || itype_select=='number' || itype_select=='radio' || itype_select=='checkbox' || itype_select=='file')
+			{
+			 	forread='input';	
+			}
+			$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p:last-child '+forread).attr('readonly','readonly');
+		}
+		if ($('.req').is(":checked")){
+			var reqd = itype_select
+			if(itype_select=='text' || itype_select=='email' || itype_select=='number' || itype_select=='radio' || itype_select=='checkbox' || itype_select=='file')
+			{
+			 	reqd='input';	
+			}
+			$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p:last-child '+reqd).attr('required','required');
+		}
+		//}
 
 		//if ($('.check_class').is(":checked")){
 			//var dd=
