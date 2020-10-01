@@ -12,14 +12,23 @@ $(document).ready(function(){
 				//console.log(fvalue)
   				//console.log(fvalue.option)
 	  			if (fvalue.input == "radio"){
+	  				var rdo=$('<p>')
 	  				$(fvalue.option).each(function(rdkey,rdvalue){
-	  					console.log(fvalue.option)
-						$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+rdvalue+'</label> <input type="'+fvalue.input+'" id="'+fvalue.id+'" name="'+fvalue.name+'" value="'+fvalue.value+'" placeholder="'+fvalue.placeholder+'" option="'+fvalue.option+'" disabled></p>');
+	  					$('<label>'+rdvalue+'</label><input type="'+fvalue.input+'" id="'+fvalue.id+'" name="'+fvalue.name+'" value="'+fvalue.value+'" placeholder="'+fvalue.placeholder+'" option="'+fvalue.option+'">').appendTo(rdo)
+						rdo.appendTo('main section:nth-child('+(hkey+1)+' ) div:nth-child(' +(skey+2)+ ') ')
+					
+
+						//$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+rdvalue+'</label> <input type="'+fvalue.input+'" id="'+fvalue.id+'" name="'+fvalue.name+'" value="'+fvalue.value+'" placeholder="'+fvalue.placeholder+'" option="'+fvalue.option+'"></p>');
 	  				});
 	  			}
 	  	  		else if(fvalue.input == "checkbox"){
+	  	  			var chkk=$('<p>')
+
 				 	$(fvalue.option).each(function(chkkey,chkvalue){
-				 		$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+chkvalue+'</label> <input type="'+fvalue.input+'" id="'+fvalue.id+'" name="'+fvalue.name+'" value="'+fvalue.value+' placeholder="'+fvalue.placeholder+'" option="'+fvalue.option+'"></p>');
+				 		$('<label>'+chkvalue+'</label><input type="'+fvalue.input+'" id="'+fvalue.id+'" name="'+fvalue.name+'" value="'+fvalue.value+'" placeholder="'+fvalue.placeholder+'" option="'+fvalue.option+'">').appendTo(chkk)
+						chkk.appendTo('main section:nth-child('+(hkey+1)+' ) div:nth-child(' +(skey+2)+ ') ')
+					
+				 		//$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+chkvalue+'</label> <input type="'+fvalue.input+'" id="'+fvalue.id+'" name="'+fvalue.name+'" value="'+fvalue.value+' placeholder="'+fvalue.placeholder+'" option="'+fvalue.option+'"></p>');
 	  	 			});	  			
 				 }
 	  	 		else if (fvalue.input == "textarea"){
@@ -56,7 +65,7 @@ $(document).ready(function(){
 		$(".formhead_list option").remove();      
 		$(".head_dropdown1").append('<option value="select">select</option>');
 		$(".formhead_list").append('<option value="select">select</option>');
-		 $( "main section h1" ).each(function(key) {
+		$( "main section h1" ).each(function(key) {
 	  		key=key+1
 	  		var head = $(this).text().replace("X","");      
 	  		$(".form-group select").append('<option value="'+key+'">'+ head +'</option>');
@@ -116,7 +125,6 @@ $(document).ready(function(){
 		var radioo_select=option_value.split(",");
 		var disable_check=$(".check_class").val();
 		var read_only=$(".r_o").val();
-		var disable="disabled"
 		//var disb=False;
 		//var read_ly=False;
 		//var reqq=False;
@@ -136,10 +144,11 @@ $(document).ready(function(){
 				$('<label>'+j+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'" >').appendTo(rad)
 				rad.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
 				});
+				$('<button onclick=myFunform(this)>X</button>').appendTo(rad)
 				stor[head_select-1].sub[subhead_select-1].form.push({'input':'radio', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
 
+			//}
 		}
-		
 		
 
 			
@@ -170,6 +179,7 @@ $(document).ready(function(){
 				$('<label>'+j+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'"  >').appendTo(check)
 				check.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
 			});
+			$('<button onclick=myFunform(this)>X</button>').appendTo(check)
 			stor[head_select-1].sub[subhead_select-1].form.push({'input':'checkbox', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
 
 
@@ -192,6 +202,7 @@ $(document).ready(function(){
 				$('<option value="'+i+'">'+radioo_select[i]+'</option>').appendTo(select_tag);	
 				selec.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
 			}
+			$('<button onclick=myFunform(this)>X</button>').appendTo(selec)
 			stor[head_select-1].sub[subhead_select-1].form.push({'input':'select', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
 		}
 			//else{
@@ -208,6 +219,7 @@ $(document).ready(function(){
 			var text_area=$('<p>')
 			$('<label>'+label_value+'</label><textarea id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'"></textarea>').appendTo(text_area)
 			text_area.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
+			$('<button onclick=myFunform(this)>X</button>').appendTo(text_area)
 			stor[head_select-1].sub[subhead_select-1].form.push({'input':'textarea', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
 
 
@@ -224,8 +236,10 @@ $(document).ready(function(){
 			var others_it=$('<p>')
 			$('<label>'+label_value+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'"></textarea>').appendTo(others_it)
 			others_it.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
+			$('<button onclick=myFunform(this)>X</button>').appendTo(others_it)
 			stor[head_select-1].sub[subhead_select-1].form.push({'input':itype_select, 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
 			}
+
 		if ($('.check_class').is(":checked")){
 			var che_ck = itype_select
 			if(itype_select=='text' || itype_select=='email' || itype_select=='number' || itype_select=='radio' || itype_select=='checkbox' || itype_select=='file')
@@ -233,8 +247,6 @@ $(document).ready(function(){
 			 	che_ck='input';	
 			}
 		 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p:last-child '+che_ck).attr('disabled','disabled');
-		 	
-
 		}
 		if ($('.r_o').is(":checked")){
 			var forread = itype_select
@@ -268,7 +280,7 @@ $(document).ready(function(){
 
 
 function myFunction(t) {
-  $(t).parent().remove();
+  $(t).parent().parent().remove();
   $(".head_dropdown1 option").remove();
   $(".formhead_list option").remove(); 
   $( "main h1" ).each(function(key) {
@@ -289,10 +301,11 @@ function myFunction(t) {
 }
 
 function myFunctionn(u) {
-  $(u).parent().remove();
+  $(u).parent().parent().remove();
   $(".formsubhead_list option").remove();
+}
 
-
-  
+function myFunform(v) {
+  $(v).parent().remove();
 }
 
