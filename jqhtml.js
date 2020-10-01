@@ -4,27 +4,26 @@ $(document).ready(function(){
   	//console.log(data);
   	$(data).each(function(hkey,hvalue){
   		//console.log(hkey,hvalue)
-  		$("main").append('<section><h1>'+hvalue.title+'<button onclick=myFunction(this)>X</button></h1></section>');
-  	
+  		$("main").append('<section><h1>'+hvalue.title+'<button onclick=myFunction(this)>X</button></h1></section>');	
   		$(hvalue.sub).each(function(skey,svalue){
   			//console.log(skey,svalue)
 			$( "main section:nth-child(" +(hkey+1)+ ")" ).append( '<div><h2> '+svalue.title+'<button onclick=myFunctionn(this)>X</button></h2></div>' );
-  		
 			$(svalue.form).each(function(fkey,fvalue){
-  			console.log(fkey,fvalue)
+				//console.log(fvalue)
+  				//console.log(fvalue.option)
 	  			if (fvalue.input == "radio"){
 	  				$(fvalue.option).each(function(rdkey,rdvalue){
-	  					console.log(rdkey,rdvalue)
-						$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+rdvalue+'</label> <input type:'+fvalue.input+', id:'+fvalue.id+', name:'+fvalue.name+', value:'+fvalue.value+', placeholder:'+fvalue.placeholder+', option:'+fvalue.option+'</p>');
+	  					console.log(fvalue.option)
+						$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+rdvalue+'</label> <input type="'+fvalue.input+'" id="'+fvalue.id+'" name="'+fvalue.name+'" value="'+fvalue.value+'" placeholder="'+fvalue.placeholder+'" option="'+fvalue.option+'" disabled></p>');
 	  				});
 	  			}
-	  			else if (fvalue.input == "checkbox"){
-					$(fvalue.option).each(function(chkkey,chkvalue){
-						$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+chkvalue+'</label> <input type:'+fvalue.input+', id:'+fvalue.id+', name:'+fvalue.name+', value:'+fvalue.value+', placeholder:'+fvalue.placeholder+', option:'+fvalue.option+'</p>');
-	  				});	  			
-				}
-	  			else if (fvalue.input == "textarea"){
-					$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+fvalue.label+'</label> <input type:'+fvalue.input+', id:'+fvalue.id+', name:'+fvalue.name+', value:'+fvalue.value+', placeholder:'+fvalue.placeholder+', option:'+fvalue.option+'</p>');
+	  	  		else if(fvalue.input == "checkbox"){
+				 	$(fvalue.option).each(function(chkkey,chkvalue){
+				 		$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+chkvalue+'</label> <input type="'+fvalue.input+'" id="'+fvalue.id+'" name="'+fvalue.name+'" value="'+fvalue.value+' placeholder="'+fvalue.placeholder+'" option="'+fvalue.option+'"></p>');
+	  	 			});	  			
+				 }
+	  	 		else if (fvalue.input == "textarea"){
+					$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+fvalue.label+'</label> <'+fvalue.input+' id="'+fvalue.id+'" name="'+fvalue.name+'" value="'+fvalue.value+' placeholder="'+fvalue.placeholder+'" option="'+fvalue.option+'"></'+fvalue.input+'></p>');
 	  			}
 	  			else if (fvalue.input == "select"){
 	  				// var option_value=  $(".op").val();
@@ -33,14 +32,13 @@ $(document).ready(function(){
 					var select_tag=$('<select>').appendTo(selec)
 					//$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label for="select">'+label_value+'</label><select class="'+class_value+'" disabled></select></p>');
 					var op_select_len =radioo_select.length;
-					for(i = 0; i < op_select_len; i++){					
-						console.log('<option value="'+i+'">'+radioo_select[i]+'</option>')
-						$('<option value="'+i+'">'+radioo_select[i]+'</option>').appendTo(select_tag);	
-					}
+					$(fvalue.option).each(function(selkkey,selvalue){
+						$('<option value="'+selkkey+'">'+selvalue+'</option>').appendTo(select_tag);	
+					});
 					selec.appendTo('main section:nth-child('+(hkey+1)+' ) div:nth-child(' +(skey+2)+ ') ')
 				}
 	  			else{
-	  				$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+fvalue.label+'</label> <input type:'+fvalue.input+', id:'+fvalue.id+', name:'+fvalue.name+', value:'+fvalue.value+', placeholder:'+fvalue.placeholder+', option:'+fvalue.option+'</p>');
+	  				$( "main section:nth-child(" +(hkey+1)+ ") div:nth-child("+(skey+2)+")" ).append( '<p><label>'+fvalue.label+'</label> <input type="'+fvalue.input+'" id="'+fvalue.id+'" name="'+fvalue.name+'" value="'+fvalue.value+'" placeholder="'+fvalue.placeholder+'" option="'+fvalue.option+'"></p>');
 
 	  			}
   			});
@@ -58,7 +56,7 @@ $(document).ready(function(){
 		$(".formhead_list option").remove();      
 		$(".head_dropdown1").append('<option value="select">select</option>');
 		$(".formhead_list").append('<option value="select">select</option>');
-		$( "main section h1" ).each(function(key) {
+		 $( "main section h1" ).each(function(key) {
 	  		key=key+1
 	  		var head = $(this).text().replace("X","");      
 	  		$(".form-group select").append('<option value="'+key+'">'+ head +'</option>');
@@ -118,6 +116,7 @@ $(document).ready(function(){
 		var radioo_select=option_value.split(",");
 		var disable_check=$(".check_class").val();
 		var read_only=$(".r_o").val();
+		var disable="disabled"
 		//var disb=False;
 		//var read_ly=False;
 		//var reqq=False;
@@ -135,11 +134,12 @@ $(document).ready(function(){
 			var rad=$('<p>')
 			$( radioo_select ).each(function(i,j) {
 				$('<label>'+j+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'" >').appendTo(rad)
-				stor[head_select-1].sub[subhead_select-1].form.push({'input':'radio', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
-				});
 				rad.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
-			//}
+				});
+				stor[head_select-1].sub[subhead_select-1].form.push({'input':'radio', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
+
 		}
+		
 		
 
 			
@@ -168,9 +168,10 @@ $(document).ready(function(){
 				//$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label>'+radioo_select[i]+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" disabled></p>');				i=i+1
 				//stor[head_select-1].sub[subhead_select-2].form.push({'input':'itype_select', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
 				$('<label>'+j+'</label><input type="'+itype_select+'" id="'+inputid_value+'" name="'+name_value+'" value="'+value_value+'" placeholder="'+pholder_value+'"  >').appendTo(check)
-				stor[head_select-1].sub[subhead_select-1].form.push({'input':'checkbox', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
+				check.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
 			});
-			check.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
+			stor[head_select-1].sub[subhead_select-1].form.push({'input':'checkbox', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
+
 
 			//}
 			// else{
@@ -189,11 +190,9 @@ $(document).ready(function(){
 			for(i = 0; i < op_select_len; i++){					
 				console.log('<option value="'+i+'">'+radioo_select[i]+'</option>')
 				$('<option value="'+i+'">'+radioo_select[i]+'</option>').appendTo(select_tag);	
-				stor[head_select-1].sub[subhead_select-1].form.push({'input':'select', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
-
+				selec.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
 			}
-			selec.appendTo('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ')
-
+			stor[head_select-1].sub[subhead_select-1].form.push({'input':'select', 'label':label_value, 'id':inputid_value, 'name':name_value, 'value':value_value, 'placeholder':pholder_value, 'option':radioo_select});
 		}
 			//else{
 			// 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') ').append('<p><label for="select">'+label_value+'</label><select class="'+class_value+'"></select></p>');
@@ -234,6 +233,8 @@ $(document).ready(function(){
 			 	che_ck='input';	
 			}
 		 	$('main section:nth-child('+head_select+' ) div:nth-child(' +cc+ ') p:last-child '+che_ck).attr('disabled','disabled');
+		 	
+
 		}
 		if ($('.r_o').is(":checked")){
 			var forread = itype_select
